@@ -49,7 +49,8 @@ var quizArray = [
             'Nawaz Sharif',
             'Zardari',
         ]
-    },{
+    },
+    {
         question : 'How many prayers in a day:',
         answer : '5',
         options : [
@@ -116,7 +117,6 @@ function nextQuestion(){
 
 function checkAnswer(check){
     if(check.innerHTML == quizArray[questionCount].answer){
-        console.log("true");
         score++;
         check.style.backgroundColor = "#6efa6e";
     }else{
@@ -137,38 +137,34 @@ function userSubmit(e){
         document.getElementById('userMainBox').style.display = "none";
         document.getElementById('mainBox').style.display = "flex";
         document.getElementById('mainBox').style.minHeight = "100vh";
+        var min = document.getElementById("min")
+        var sec = document.getElementById("sec")
+
+
+        var minjs = 0
+        var secjs = 0
+        min.innerHTML = minjs
+
+        var interval = setInterval(function(){
+            secjs++
+            sec.innerHTML = secjs
+            if(secjs ==60){
+                minjs--
+                min.innerHTML = minjs
+            }
+            if(minjs < 0){
+                resultBox.style.display = "flex";
+                resultBox.style.height = "80vh";
+                mainBox.style.display = "none";
+                document.getElementById('showName').innerHTML = userInput.value;
+                document.getElementById('totalQues').innerHTML = quizArray.length;
+                document.getElementById('userScore').innerHTML = score;
+                document.getElementById('wrongAns').innerHTML = wrongCounter;
+            }
+        } , 1000)
     }
 }
 
 function backBtn(){
     window.location.href= "";
 }
-
-
-
-var min = document.getElementById("min")
-var sec = document.getElementById("sec")
-
-
-var minjs = 0
-var secjs = 0
-min.innerHTML = minjs
-
-var interval = setInterval(function(){
-    secjs++
-    sec.innerHTML = secjs
-      if(secjs ==60){
-      minjs--
-
-      min.innerHTML = minjs
-    }
-    if(minjs < 0){
-        resultBox.style.display = "flex";
-        resultBox.style.height = "80vh";
-        mainBox.style.display = "none";
-        document.getElementById('showName').innerHTML = userInput.value;
-        document.getElementById('totalQues').innerHTML = quizArray.length;
-        document.getElementById('userScore').innerHTML = score;
-        document.getElementById('wrongAns').innerHTML = wrongCounter;
-    }
-} , 1000)
