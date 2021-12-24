@@ -1,3 +1,14 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyCVswu9TbPw3xR5NiZZMm6mHieuCet3O2U",
+    authDomain: "quizapp-5600f.firebaseapp.com",
+    databaseURL: "https://quizapp-5600f-default-rtdb.firebaseio.com",
+    projectId: "quizapp-5600f",
+    storageBucket: "quizapp-5600f.appspot.com",
+    messagingSenderId: "173472770306",
+    appId: "1:173472770306:web:38a0007febdb42637eba1b"
+  };
+
+const app = firebase.initializeApp(firebaseConfig);
 var quizArray = [
     {
         question : 'HTML stand for.....?',
@@ -92,6 +103,13 @@ function nextQuestion(){
         document.getElementById('userScore').innerHTML = score;
         document.getElementById('totalQues').innerHTML = quizArray.length;
         document.getElementById('wrongAns').innerHTML = wrongCounter;
+        var key = app.database().ref('/').push().key;
+        var obj = {
+            key : key,
+            name : userInput.value,
+            score : score,
+        }
+        app.database().ref('quiz').child(key).set(obj);
     }
     showQues(questionCount);
 }
@@ -100,7 +118,7 @@ function checkAnswer(check){
     if(check.innerHTML == quizArray[questionCount].answer){
         console.log("true");
         score++;
-        check.style.backgroundColor = "green";
+        check.style.backgroundColor = "#6efa6e";
     }else{
         wrongCounter++;
         check.style.backgroundColor = "red";
@@ -125,3 +143,32 @@ function userSubmit(e){
 function backBtn(){
     window.location.href= "";
 }
+
+
+
+var min = document.getElementById("min")
+var sec = document.getElementById("sec")
+
+
+var minjs = 0
+var secjs = 0
+min.innerHTML = minjs
+
+var interval = setInterval(function(){
+    secjs++
+    sec.innerHTML = secjs
+      if(secjs ==60){
+      minjs--
+
+      min.innerHTML = minjs
+    }
+    if(minjs < 0){
+        resultBox.style.display = "flex";
+        resultBox.style.height = "80vh";
+        mainBox.style.display = "none";
+        document.getElementById('showName').innerHTML = userInput.value;
+        document.getElementById('totalQues').innerHTML = quizArray.length;
+        document.getElementById('userScore').innerHTML = score;
+        document.getElementById('wrongAns').innerHTML = wrongCounter;
+    }
+} , 1000)

@@ -113,3 +113,33 @@ body{
     color: white;
     text-decoration: none;
 }
+
+
+
+.questionBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+#questionBox{
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 20px;
+}
+.options{
+    width: 100%;
+}
+.userOptions{
+    border-radius: 7px;
+    padding: 10px;
+}
+.submitBtn{
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #2448fc;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+}
